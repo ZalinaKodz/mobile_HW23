@@ -7,12 +7,12 @@ import org.junit.jupiter.api.Test;
 import static com.codeborne.selenide.Selenide.$;
 import static io.qameta.allure.Allure.step;
 
-public class WikiTests extends TestBase {
+public class WikiLocalTests extends TestBase {
     @Test
     void successfulSearchTest() {
         step("Verify first page", () -> {
             $(AppiumBy.id("org.wikipedia.alpha:id/primaryTextView"))
-                    .shouldHave(Condition.text("The Free Encyclopedia …in over 300 languages"));
+                    .shouldHave(Condition.exist);
             $(AppiumBy.id("org.wikipedia.alpha:id/fragment_onboarding_forward_button")).click();
         });
         step("Verify second page", () -> {

@@ -2,46 +2,42 @@ package tests;
 
 import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.logevents.SelenideLogger;
-import config.Host;
-import config.HostConfig;
 import drivers.AndroidStudioDriver;
 import drivers.BrowserstackDriver;
 import drivers.RealDeviceDriver;
 import drivers.SelenoidDriver;
 import helpers.Attach;
 import io.qameta.allure.selenide.AllureSelenide;
-import org.aeonbits.owner.ConfigFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 import static com.codeborne.selenide.Selenide.*;
 
+
+
 public class TestBase {
+    static String deviceHost = System.getProperty("deviceHost", "emulation");
 
     @BeforeAll
-    static void beforeAll() {
-        Host host = ConfigFactory.create(HostConfig.class).host();
-        switch (host) {
-            case BROWSERSTACK:
+    public static void setup() throws Exception {
+        switch (deviceHost) {
+            case "browserstack":
                 Configuration.browser = BrowserstackDriver.class.getName();
-                Configuration.browserSize = null;
                 break;
-            case EMULATION:
+            case "emulation":
                 Configuration.browser = AndroidStudioDriver.class.getName();
-                Configuration.browserSize = "360x640";
                 break;
-            case REAL:
+            case "real":
                 Configuration.browser = RealDeviceDriver.class.getName();
-                Configuration.browserSize = null;
                 break;
-            case SELENOID:
+            case "selenoid":
                 Configuration.browser = SelenoidDriver.class.getName();
-                Configuration.browserSize = "1920x1080";
                 break;
             default:
-                throw new IllegalArgumentException("Invalid host value: " + host);
+                throw new Exception("Unrecognised deviceHost");
         }
+        Configuration.browserSize = null;
     }
 
     @BeforeEach
@@ -52,13 +48,17 @@ public class TestBase {
 
     @AfterEach
     void afterEach() {
- //       String sessionId = sessionId().toString();
-//        Attach.screenshotAs("Last screenshot");
+        String sessionId = sessionId().toString();
+
+        // Attach.screenshotAs("Last screenshot");
         Attach.pageSource();
 
         closeWebDriver();
 
-//        Attach.addVideo(sessionId);
+        if (deviceHost.equals("browserstack")) {
+            Attach.addVideo(sessionId);
+        }
+
     }
 
 }

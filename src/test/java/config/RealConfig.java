@@ -24,10 +24,10 @@ public interface RealConfig extends Config {
     String appPath();
 
     @Key("deviceName")
-    @DefaultValue("Pixel 4 API 30")
+    @DefaultValue("R9KBB17722154216")
     String deviceName();
 
     @Key("platformVersion")
-    @DefaultValue("11.0")
+    @DefaultValue("6.0")
     String platformVersion();
 }

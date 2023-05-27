@@ -13,8 +13,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class BrowserstackDriver implements WebDriverProvider {
-    public static BrowserstackConfig config = ConfigFactory.create(BrowserstackConfig.class,
-            System.getProperties());
+    public static BrowserstackConfig config = ConfigFactory.create(BrowserstackConfig.class, System.getProperties());
+
     @Nonnull
     @Override
     public WebDriver createDriver(@Nonnull Capabilities capabilities) {
@@ -40,8 +40,7 @@ public class BrowserstackDriver implements WebDriverProvider {
         // Initialise the remote Webdriver using BrowserStack remote URL
         // and desired capabilities defined above
         try {
-            return new RemoteWebDriver(
-                    new URL(config.getRemoteUrl()), mutableCapabilities);
+            return new RemoteWebDriver(new URL(config.getRemoteUrl()), mutableCapabilities);
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }

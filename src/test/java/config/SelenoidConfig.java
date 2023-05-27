@@ -6,6 +6,15 @@ import org.aeonbits.owner.Config;
         "classpath:config/selenoid.properties"
 })
 public interface SelenoidConfig extends Config {
+
+    @Key("appPackage")
+    @DefaultValue("org.wikipedia.alpha")
+    String appPackage();
+
+    @Key("appActivity")
+    @DefaultValue("org.wikipedia.main.MainActivity")
+    String appActivity();
+
     @Key("selenoidUrl")
     @DefaultValue("http://user1:1234@selenoid.autotests.cloud:4444/wd/hub")
     String selenoidUrl();

@@ -25,14 +25,11 @@ public class SelenoidDriver implements WebDriverProvider {
         mutableCapabilities.setCapability("version", config.selenoidAppVersion());
 
 
-        mutableCapabilities.setCapability("appActivity", "org.wikipedia.main.MainActivity");
-        mutableCapabilities.setCapability("appPackage", "org.wikipedia.alpha");
+        mutableCapabilities.setCapability("appActivity", config.appActivity());
+        mutableCapabilities.setCapability("appPackage", config.appPackage());
 
         mutableCapabilities.setCapability("app", config.appPath());
 
-
-        // Initialise the remote Webdriver using BrowserStack remote URL
-        // and desired capabilities defined above
         try {
             return new RemoteWebDriver(
                     new URL(config.selenoidUrl()), mutableCapabilities);

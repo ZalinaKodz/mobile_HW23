@@ -1,7 +1,7 @@
 package config;
 
 import org.aeonbits.owner.Config;
-@Config.Sources("classpath:config/browserstack.properties")
+@Config.Sources("classpath:config/emulator.properties")
 public interface EmulatorConfig extends Config {
     @Key("appPackage")
     @DefaultValue("org.wikipedia.alpha")
