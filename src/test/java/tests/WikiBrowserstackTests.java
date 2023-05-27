@@ -19,7 +19,7 @@ public class WikiBrowserstackTests extends TestBase {
             step("Taping 'Italiano'", () ->
                     $(AppiumBy.id("org.wikipedia.alpha:id/preference_languages_filter")).sendKeys("Italiano"));
                     $(AppiumBy.id("org.wikipedia.alpha:id/language_subtitle")).click();
-            step("Check that menu has Italiano", () -> {
+            step("Check that we got selected language in settings", () -> {
                 $(AppiumBy.id("android:id/summary")).shouldHave(exactText("Italiano"));
             });
     }
